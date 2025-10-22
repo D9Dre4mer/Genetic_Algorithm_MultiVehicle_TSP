@@ -1,4 +1,4 @@
-# Multi-Vehicle TSP HCMC - Changelog
+# Genetic Algorithm Multi-Vehicle TSP - Changelog
 
 ## [1.0.0] - 2025-10-22
 
@@ -34,7 +34,7 @@
 
 ### Files Structure
 ```
-MultiVehicle_TSP_HCMC/
+Genetic_Algorithm_MultiVehicle_TSP/
 ├── data/           # Input data (CSV files)
 ├── src/            # Source code (Python files)
 ├── results/        # Output results (images, JSON)

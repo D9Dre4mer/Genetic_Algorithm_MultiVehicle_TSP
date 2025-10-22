@@ -1,10 +1,10 @@
-# 🧬 Multi-Vehicle TSP Tối Ưu Khoảng Cách - TP.HCM
+# 🧬 Genetic Algorithm for Multi-Vehicle TSP Optimization
 
-*Giải thuật di truyền tập trung tối đa vào giảm khoảng cách di chuyển với 168 phường ở TP.HCM — đạt 1,753 km và hội tụ hoàn toàn.*
+*Giải thuật di truyền tối ưu hóa bài toán người bán hàng đa phương tiện cho 168 phường ở TP.HCM — đạt 1,753 km và hội tụ hoàn toàn.*
 
 ## 📋 Tổng quan
 
-Dự án này giải quyết bài toán **Multi-Vehicle Traveling Salesman Problem (TSP)** cho 168 phường/xã ở TP.HCM sau sáp nhập hành chính năm 2025. Thuật toán tập trung tối đa vào việc giảm khoảng cách di chuyển tổng thể.
+Dự án này sử dụng **Giải thuật Di truyền (Genetic Algorithm)** để giải quyết bài toán **Multi-Vehicle Traveling Salesman Problem (TSP)** cho 168 phường/xã ở TP.HCM sau sáp nhập hành chính năm 2025. Thuật toán tập trung tối đa vào việc giảm khoảng cách di chuyển tổng thể.
 
 ## 🎯 Mục tiêu
 
@@ -19,11 +19,11 @@ Dự án này giải quyết bài toán **Multi-Vehicle Traveling Salesman Probl
 ## 📁 Cấu trúc dự án
 
 ```
-MultiVehicle_TSP_HCMC/
+Genetic_Algorithm_MultiVehicle_TSP/
 ├── data/
 │   └── Phuong_TPHCM_With_Coordinates.CSV    # Dữ liệu 168 phường với tọa độ
 ├── src/
-│   ├── tsp_solver.py                        # Thuật toán Multi-Vehicle TSP chính
+│   ├── tsp_solver.py                        # Giải thuật di truyền Multi-Vehicle TSP
 │   ├── create_visualizations.py             # Tạo biểu đồ phân tích
 │   └── create_maps.py                       # Tạo bản đồ routes
 ├── results/
@@ -36,7 +36,7 @@ MultiVehicle_TSP_HCMC/
 │   ├── summary_report.html                  # Báo cáo tổng hợp
 │   └── multi_vehicle_tsp_results.json       # Kết quả JSON (1,753 km)
 ├── docs/
-│   └── genetic-algorithm-tsp-hcmc.md         # Tài liệu chi tiết
+│   └── genetic-algorithm-tsp-hcmc.md         # Tài liệu chi tiết về giải thuật di truyền
 ├── tools/
 │   └── upload_and_rewrite.py                # Tool upload ảnh lên ImgBB
 ├── requirements.txt                          # Dependencies Python
