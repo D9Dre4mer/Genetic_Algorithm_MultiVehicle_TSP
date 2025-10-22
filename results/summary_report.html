@@ -1,0 +1,267 @@
+
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Multi-Vehicle TSP - Báo cáo kết quả</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f5f5f5;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            h1 {
+                color: #2E86AB;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+            .stat-card {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+            }
+            .stat-value {
+                font-size: 2em;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+            .stat-label {
+                font-size: 0.9em;
+                opacity: 0.9;
+            }
+            .vehicle-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            .vehicle-table th, .vehicle-table td {
+                border: 1px solid #ddd;
+                padding: 12px;
+                text-align: left;
+            }
+            .vehicle-table th {
+                background-color: #2E86AB;
+                color: white;
+            }
+            .vehicle-table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            .district-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 10px;
+                margin-top: 20px;
+            }
+            .district-item {
+                background: #e8f4f8;
+                padding: 10px;
+                border-radius: 5px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🚚 Multi-Vehicle TSP với Time Windows - TP.HCM</h1>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">1753.2</div>
+                    <div class="stat-label">Tổng khoảng cách (km)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5765</div>
+                    <div class="stat-label">Tổng thời gian (phút)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Số xe sử dụng</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">82</div>
+                    <div class="stat-label">Vi phạm time window</div>
+                </div>
+            </div>
+            
+            <h2>📊 Chi tiết từng xe</h2>
+            <table class="vehicle-table">
+                <thead>
+                    <tr>
+                        <th>Xe</th>
+                        <th>Số điểm</th>
+                        <th>Khoảng cách (km)</th>
+                        <th>Thời gian (phút)</th>
+                        <th>Hiệu quả (km/điểm)</th>
+                        <th>Quận/Huyện phục vụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                    <tr>
+                        <td>Xe 1</td>
+                        <td>41</td>
+                        <td>531.9</td>
+                        <td>1651</td>
+                        <td>13.0</td>
+                        <td>Q12, Q5, Q1, Q3, Q10, Q2, Q4, OTHER, Q6, Q11</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Xe 2</td>
+                        <td>45</td>
+                        <td>334.4</td>
+                        <td>1140</td>
+                        <td>7.4</td>
+                        <td>BTN, Q12, Q1, Q3, Q6, Q9, TD, Q10, Q2, OTHER, HM</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Xe 3</td>
+                        <td>42</td>
+                        <td>360.5</td>
+                        <td>1335</td>
+                        <td>8.6</td>
+                        <td>NB, Q11, BTN, Q12, CG, OTHER, BC, HM, Q8</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Xe 4</td>
+                        <td>40</td>
+                        <td>526.4</td>
+                        <td>1639</td>
+                        <td>13.2</td>
+                        <td>OTHER, CC, CG</td>
+                    </tr>
+            
+                </tbody>
+            </table>
+            
+            <h2>🗺️ Phân chia địa bàn</h2>
+            <div class="district-list">
+    
+                <div class="district-item">
+                    <strong>Q12</strong><br>
+                    3 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q5</strong><br>
+                    1 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q1</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q3</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q10</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q2</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q4</strong><br>
+                    1 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>OTHER</strong><br>
+                    4 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q6</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q11</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>BTN</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q9</strong><br>
+                    1 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>TD</strong><br>
+                    1 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>HM</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>NB</strong><br>
+                    1 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>CG</strong><br>
+                    2 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>BC</strong><br>
+                    1 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>Q8</strong><br>
+                    1 xe phục vụ
+                </div>
+        
+                <div class="district-item">
+                    <strong>CC</strong><br>
+                    1 xe phục vụ
+                </div>
+        
+            </div>
+            
+            <h2>📈 Thống kê tổng quan</h2>
+            <ul>
+                <li><strong>Tổng số phường/xã:</strong> 168 điểm</li>
+                <li><strong>Phương pháp:</strong> Thuật toán di truyền (Genetic Algorithm)</li>
+                <li><strong>Ràng buộc:</strong> Time Windows, Giờ cao điểm</li>
+                <li><strong>Tối ưu:</strong> Khoảng cách, Cân bằng tải, Thời gian</li>
+            </ul>
+        </div>
+    </body>
+    </html>
+    
