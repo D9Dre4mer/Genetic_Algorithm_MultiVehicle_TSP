@@ -13,10 +13,10 @@ from typing import Dict, List, Tuple
 def load_data_and_results():
     """Tải dữ liệu và kết quả"""
     # Tải dữ liệu CSV
-    df = pd.read_csv('Phuong_TPHCM_With_Coordinates.CSV')
+    df = pd.read_csv('data/Phuong_TPHCM_With_Coordinates.CSV')
     
     # Tải kết quả TSP
-    with open('multi_vehicle_tsp_results.json', 'r', encoding='utf-8') as f:
+    with open('results/multi_vehicle_tsp_results.json', 'r', encoding='utf-8') as f:
         results = json.load(f)
     
     return df, results
@@ -79,56 +79,6 @@ def create_route_map(df: pd.DataFrame, results: Dict, output_file: str = 'result
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
     plt.close()
     print(f"Da tao ban do routes: {output_file}")
-
-def create_district_map(df: pd.DataFrame, results: Dict, output_file: str = 'results/district_map.png'):
-    """Tạo bản đồ phân chia theo quận/huyện"""
-    import os
-    os.makedirs('results', exist_ok=True)
-    
-    plt.figure(figsize=(16, 12))
-    
-    # Tạo mapping quận/huyện
-    district_colors = {}
-    districts = set()
-    
-    for route_info in results['vehicle_routes']:
-        if route_info['route']:
-            for district in route_info['districts_covered']:
-                districts.add(district)
-    
-    # Gán màu cho từng quận/huyện
-    colors = plt.cm.Set3(np.linspace(0, 1, len(districts)))
-    for i, district in enumerate(sorted(districts)):
-        district_colors[district] = colors[i]
-    
-    # Vẽ tất cả điểm theo quận/huyện
-    for district in districts:
-        district_locations = []
-        for route_info in results['vehicle_routes']:
-            if route_info['route']:
-                for location in route_info['route']:
-                    row = df[df['Xa_Phuong_Moi_TPHCM'] == location]
-                    if not row.empty:
-                        # Kiểm tra quận/huyện của điểm này
-                        if district in location:
-                            district_locations.append([row.iloc[0]['Longitude'], row.iloc[0]['Latitude']])
-        
-        if district_locations:
-            district_locations = np.array(district_locations)
-            plt.scatter(district_locations[:, 0], district_locations[:, 1], 
-                       c=[district_colors[district]], s=60, alpha=0.8,
-                       label=f'{district} ({len(district_locations)} điểm)',
-                       edgecolors='black', linewidth=0.5)
-    
-    plt.title('Phân chia địa bàn theo Quận/Huyện', fontsize=16, fontweight='bold')
-    plt.xlabel('Kinh độ', fontsize=12)
-    plt.ylabel('Vĩ độ', fontsize=12)
-    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-    plt.grid(True, alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(output_file, dpi=300, bbox_inches='tight')
-    plt.close()
-    print(f"Da tao ban do phan chia: {output_file}")
 
 def create_efficiency_map(df: pd.DataFrame, results: Dict, output_file: str = 'results/efficiency_map.png'):
     """Tạo bản đồ hiệu quả từng xe"""

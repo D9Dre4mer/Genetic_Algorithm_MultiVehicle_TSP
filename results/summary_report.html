@@ -64,18 +64,6 @@
             .vehicle-table tr:nth-child(even) {
                 background-color: #f2f2f2;
             }
-            .district-list {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 10px;
-                margin-top: 20px;
-            }
-            .district-item {
-                background: #e8f4f8;
-                padding: 10px;
-                border-radius: 5px;
-                text-align: center;
-            }
         </style>
     </head>
     <body>
@@ -84,11 +72,11 @@
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value">1753.2</div>
+                    <div class="stat-value">1601.2</div>
                     <div class="stat-label">Tổng khoảng cách (km)</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">5765</div>
+                    <div class="stat-value">5876</div>
                     <div class="stat-label">Tổng thời gian (phút)</div>
                 </div>
                 <div class="stat-card">
@@ -96,7 +84,7 @@
                     <div class="stat-label">Số xe sử dụng</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">82</div>
+                    <div class="stat-value">101</div>
                     <div class="stat-label">Vi phạm time window</div>
                 </div>
             </div>
@@ -110,149 +98,44 @@
                         <th>Khoảng cách (km)</th>
                         <th>Thời gian (phút)</th>
                         <th>Hiệu quả (km/điểm)</th>
-                        <th>Quận/Huyện phục vụ</th>
                     </tr>
                 </thead>
                 <tbody>
     
                     <tr>
                         <td>Xe 1</td>
-                        <td>41</td>
-                        <td>531.9</td>
-                        <td>1651</td>
-                        <td>13.0</td>
-                        <td>Q12, Q5, Q1, Q3, Q10, Q2, Q4, OTHER, Q6, Q11</td>
+                        <td>40</td>
+                        <td>538.4</td>
+                        <td>1870</td>
+                        <td>13.5</td>
                     </tr>
             
                     <tr>
                         <td>Xe 2</td>
                         <td>45</td>
-                        <td>334.4</td>
-                        <td>1140</td>
-                        <td>7.4</td>
-                        <td>BTN, Q12, Q1, Q3, Q6, Q9, TD, Q10, Q2, OTHER, HM</td>
+                        <td>175.5</td>
+                        <td>987</td>
+                        <td>3.9</td>
                     </tr>
             
                     <tr>
                         <td>Xe 3</td>
                         <td>42</td>
-                        <td>360.5</td>
-                        <td>1335</td>
+                        <td>359.2</td>
+                        <td>1357</td>
                         <td>8.6</td>
-                        <td>NB, Q11, BTN, Q12, CG, OTHER, BC, HM, Q8</td>
                     </tr>
             
                     <tr>
                         <td>Xe 4</td>
-                        <td>40</td>
-                        <td>526.4</td>
-                        <td>1639</td>
-                        <td>13.2</td>
-                        <td>OTHER, CC, CG</td>
+                        <td>41</td>
+                        <td>528.1</td>
+                        <td>1662</td>
+                        <td>12.9</td>
                     </tr>
             
                 </tbody>
             </table>
-            
-            <h2>🗺️ Phân chia địa bàn</h2>
-            <div class="district-list">
-    
-                <div class="district-item">
-                    <strong>Q12</strong><br>
-                    3 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q5</strong><br>
-                    1 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q1</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q3</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q10</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q2</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q4</strong><br>
-                    1 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>OTHER</strong><br>
-                    4 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q6</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q11</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>BTN</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q9</strong><br>
-                    1 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>TD</strong><br>
-                    1 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>HM</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>NB</strong><br>
-                    1 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>CG</strong><br>
-                    2 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>BC</strong><br>
-                    1 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>Q8</strong><br>
-                    1 xe phục vụ
-                </div>
-        
-                <div class="district-item">
-                    <strong>CC</strong><br>
-                    1 xe phục vụ
-                </div>
-        
-            </div>
             
             <h2>📈 Thống kê tổng quan</h2>
             <ul>

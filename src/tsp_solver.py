@@ -52,8 +52,7 @@ class MultiVehicleTSPGA:
         # Giờ cao điểm (7h-9h, 17h-19h)
         self.rush_hours = [(420, 540), (1020, 1140)]  # 7h-9h, 17h-19h
         
-        # Phân chia địa bàn theo quận/huyện
-        self.districts = self._assign_districts()
+        # Không phân chia theo quận/huyện, chỉ tối ưu theo tọa độ phường/xã
         
         # Lưu lịch sử tiến hóa
         self.fitness_history = []
@@ -64,53 +63,6 @@ class MultiVehicleTSPGA:
         self.best_fitness = 0
         self.stagnation_count = 0
         
-    def _assign_districts(self) -> Dict[str, str]:
-        """Phân chia các phường/xã theo quận/huyện dựa trên tọa độ"""
-        districts = {}
-        
-        # Định nghĩa ranh giới các quận/huyện TP.HCM (approximate)
-        district_boundaries = {
-            'Q1': {'lat_min': 10.75, 'lat_max': 10.80, 'lon_min': 106.68, 'lon_max': 106.72},
-            'Q2': {'lat_min': 10.70, 'lat_max': 10.80, 'lon_min': 106.72, 'lon_max': 106.80},
-            'Q3': {'lat_min': 10.75, 'lat_max': 10.80, 'lon_min': 106.65, 'lon_max': 106.72},
-            'Q4': {'lat_min': 10.73, 'lat_max': 10.78, 'lon_min': 106.68, 'lon_max': 106.75},
-            'Q5': {'lat_min': 10.73, 'lat_max': 10.78, 'lon_min': 106.65, 'lon_max': 106.72},
-            'Q6': {'lat_min': 10.72, 'lat_max': 10.78, 'lon_min': 106.60, 'lon_max': 106.68},
-            'Q7': {'lat_min': 10.70, 'lat_max': 10.75, 'lon_min': 106.70, 'lon_max': 106.80},
-            'Q8': {'lat_min': 10.70, 'lat_max': 10.75, 'lon_min': 106.60, 'lon_max': 106.70},
-            'Q9': {'lat_min': 10.80, 'lat_max': 10.90, 'lon_min': 106.75, 'lon_max': 106.85},
-            'Q10': {'lat_min': 10.75, 'lat_max': 10.85, 'lon_min': 106.60, 'lon_max': 106.70},
-            'Q11': {'lat_min': 10.75, 'lat_max': 10.85, 'lon_min': 106.55, 'lon_max': 106.65},
-            'Q12': {'lat_min': 10.80, 'lat_max': 10.90, 'lon_min': 106.60, 'lon_max': 106.75},
-            'TD': {'lat_min': 10.80, 'lat_max': 10.95, 'lon_min': 106.75, 'lon_max': 106.90},
-            'GV': {'lat_min': 10.80, 'lat_max': 10.90, 'lon_min': 106.65, 'lon_max': 106.75},
-            'BT': {'lat_min': 10.80, 'lat_max': 10.90, 'lon_min': 106.70, 'lon_max': 106.80},
-            'TB': {'lat_min': 10.75, 'lat_max': 10.85, 'lon_min': 106.60, 'lon_max': 106.70},
-            'TP': {'lat_min': 10.75, 'lat_max': 10.85, 'lon_min': 106.60, 'lon_max': 106.70},
-            'PN': {'lat_min': 10.78, 'lat_max': 10.85, 'lon_min': 106.65, 'lon_max': 106.72},
-            'BTN': {'lat_min': 10.70, 'lat_max': 10.80, 'lon_min': 106.50, 'lon_max': 106.65},
-            'HM': {'lat_min': 10.85, 'lat_max': 10.95, 'lon_min': 106.55, 'lon_max': 106.70},
-            'CC': {'lat_min': 10.90, 'lat_max': 11.20, 'lon_min': 106.40, 'lon_max': 106.60},
-            'BC': {'lat_min': 10.60, 'lat_max': 10.80, 'lon_min': 106.50, 'lon_max': 106.70},
-            'NB': {'lat_min': 10.60, 'lat_max': 10.75, 'lon_min': 106.70, 'lon_max': 106.85},
-            'CG': {'lat_min': 10.40, 'lat_max': 10.60, 'lon_min': 106.80, 'lon_max': 107.00}
-        }
-        
-        for location in self.locations:
-            lat, lon = self.coords[location]
-            assigned = False
-            
-            for district, bounds in district_boundaries.items():
-                if (bounds['lat_min'] <= lat <= bounds['lat_max'] and 
-                    bounds['lon_min'] <= lon <= bounds['lon_max']):
-                    districts[location] = district
-                    assigned = True
-                    break
-            
-            if not assigned:
-                districts[location] = 'OTHER'
-        
-        return districts
     
     def haversine_distance(self, lat1: float, lon1: float, 
                           lat2: float, lon2: float) -> float:
@@ -765,7 +717,7 @@ class MultiVehicleTSPGA:
     
     def _multi_vehicle_crossover(self, parent1: List[List[str]], 
                                 parent2: List[List[str]]) -> List[List[str]]:
-        """Crossover cho Multi-Vehicle TSP"""
+        """Crossover cho Multi-Vehicle TSP - phân chia ngẫu nhiên theo tọa độ"""
         child = []
         
         # Lấy tất cả địa điểm từ cả hai cha mẹ
@@ -773,34 +725,27 @@ class MultiVehicleTSPGA:
         for route in parent1 + parent2:
             all_locations.update(route)
         
-        # Phân chia lại theo quận/huyện
-        district_groups = {}
-        for location in all_locations:
-            district = self.districts[location]
-            if district not in district_groups:
-                district_groups[district] = []
-            district_groups[district].append(location)
+        # Phân chia ngẫu nhiên các địa điểm cho các xe
+        all_locations = list(all_locations)
+        random.shuffle(all_locations)
         
-        # Tạo routes cho từng xe
-        districts_list = list(district_groups.keys())
+        # Phân chia đều cho các xe
+        points_per_vehicle = len(all_locations) // self.num_vehicles
+        remaining_points = len(all_locations) % self.num_vehicles
         
+        start_idx = 0
         for vehicle_id in range(self.num_vehicles):
-            if vehicle_id < len(districts_list):
-                assigned_districts = []
-                for i in range(vehicle_id, len(districts_list), self.num_vehicles):
-                    assigned_districts.append(districts_list[i])
-                
-                vehicle_locations = []
-                for district in assigned_districts:
-                    vehicle_locations.extend(district_groups[district])
-                
-                if vehicle_locations:
-                    random.shuffle(vehicle_locations)
-                    child.append(vehicle_locations)
-                else:
-                    child.append([])
-            else:
-                child.append([])
+            # Tính số điểm cho xe này
+            vehicle_points = points_per_vehicle
+            if vehicle_id < remaining_points:
+                vehicle_points += 1
+            
+            # Lấy điểm cho xe này
+            end_idx = start_idx + vehicle_points
+            vehicle_locations = all_locations[start_idx:end_idx]
+            
+            child.append(vehicle_locations)
+            start_idx = end_idx
         
         return child
     
@@ -824,7 +769,6 @@ class MultiVehicleTSPGA:
             'total_distance': 0,
             'total_time': 0,
             'fitness_history': self.fitness_history,
-            'district_coverage': {},
             'time_window_violations': 0
         }
         
@@ -836,8 +780,7 @@ class MultiVehicleTSPGA:
                 'vehicle_id': vehicle_id,
                 'route': route,
                 'distance': self.route_distance(route),
-                'time': 0,
-                'districts_covered': set()
+                'time': 0
             }
             
             # Tính thời gian và kiểm tra time windows
@@ -857,24 +800,14 @@ class MultiVehicleTSPGA:
                     travel_time = self.calculate_travel_time(*coord1, *coord2, current_time)
                     current_time += travel_time + 15  # Thêm 15 phút để giao hàng
                 
-                # Ghi nhận quận/huyện được phục vụ
-                district = self.districts[location]
-                route_info['districts_covered'].add(district)
+                # Không cần ghi nhận quận/huyện nữa
             
             route_info['time'] = current_time - 480  # Thời gian làm việc (phút)
-            route_info['districts_covered'] = list(route_info['districts_covered'])
             
             results['vehicle_routes'].append(route_info)
             results['total_distance'] += route_info['distance']
             results['total_time'] += route_info['time']
             results['time_window_violations'] += violations
-        
-        # Thống kê phân chia địa bàn
-        for route_info in results['vehicle_routes']:
-            for district in route_info['districts_covered']:
-                if district not in results['district_coverage']:
-                    results['district_coverage'][district] = 0
-                results['district_coverage'][district] += 1
         
         return results
 
@@ -910,23 +843,16 @@ if __name__ == "__main__":
     print("=" * 50)
     
     # Tải dữ liệu
-    coords = load_data('Phuong_TPHCM_With_Coordinates.CSV')
+    coords = load_data('data/Phuong_TPHCM_With_Coordinates.CSV')
     
     if len(coords) == 0:
         print("Khong co du lieu hop le!")
         exit(1)
     
-    # Nhập số xe từ user
-    try:
-        num_vehicles = int(input("Nhập số xe giao hàng (2-8): "))
-        if num_vehicles < 2 or num_vehicles > 8:
-            print("Số xe phải từ 2-8. Sử dụng mặc định: 4 xe")
-            num_vehicles = 4
-    except ValueError:
-        print("Số không hợp lệ. Sử dụng mặc định: 4 xe")
-        num_vehicles = 4
+    # Sử dụng 4 xe mặc định
+    num_vehicles = 4
     
-    print(f"Sử dụng {num_vehicles} xe giao hàng")
+    print(f"Using {num_vehicles} vehicles")
     print()
     
     # Khởi tạo thuật toán tập trung hoàn toàn vào khoảng cách
@@ -951,7 +877,7 @@ if __name__ == "__main__":
     print(f"So xe su dung: {len([r for r in results['vehicle_routes'] if r['route']])}")
     
     # Lưu kết quả
-    with open('multi_vehicle_tsp_results.json', 'w', encoding='utf-8') as f:
+    with open('results/multi_vehicle_tsp_results.json', 'w', encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     
-    print("Da luu ket qua vao multi_vehicle_tsp_results.json")
+    print("Da luu ket qua vao results/multi_vehicle_tsp_results.json")

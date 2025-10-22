@@ -16,7 +16,7 @@ import os
 plt.rcParams['font.family'] = ['DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
-def load_results(file_path: str = 'multi_vehicle_tsp_results.json') -> Dict:
+def load_results(file_path: str = 'results/multi_vehicle_tsp_results.json') -> Dict:
     """Tải kết quả từ file JSON"""
     with open(file_path, 'r', encoding='utf-8') as f:
         return json.load(f)
@@ -369,18 +369,6 @@ def create_summary_report(results: Dict, output_file: str = 'results/summary_rep
             .vehicle-table tr:nth-child(even) {{
                 background-color: #f2f2f2;
             }}
-            .district-list {{
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 10px;
-                margin-top: 20px;
-            }}
-            .district-item {{
-                background: #e8f4f8;
-                padding: 10px;
-                border-radius: 5px;
-                text-align: center;
-            }}
         </style>
     </head>
     <body>
@@ -415,7 +403,6 @@ def create_summary_report(results: Dict, output_file: str = 'results/summary_rep
                         <th>Khoảng cách (km)</th>
                         <th>Thời gian (phút)</th>
                         <th>Hiệu quả (km/điểm)</th>
-                        <th>Quận/Huyện phục vụ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -424,7 +411,6 @@ def create_summary_report(results: Dict, output_file: str = 'results/summary_rep
     for route_info in results['vehicle_routes']:
         if route_info['route']:
             efficiency = route_info['distance'] / len(route_info['route'])
-            districts_str = ', '.join(route_info['districts_covered'])
             html_content += f"""
                     <tr>
                         <td>Xe {route_info['vehicle_id'] + 1}</td>
@@ -432,28 +418,12 @@ def create_summary_report(results: Dict, output_file: str = 'results/summary_rep
                         <td>{route_info['distance']:.1f}</td>
                         <td>{route_info['time']:.0f}</td>
                         <td>{efficiency:.1f}</td>
-                        <td>{districts_str}</td>
                     </tr>
             """
     
     html_content += f"""
                 </tbody>
             </table>
-            
-            <h2>🗺️ Phân chia địa bàn</h2>
-            <div class="district-list">
-    """
-    
-    for district, count in results['district_coverage'].items():
-        html_content += f"""
-                <div class="district-item">
-                    <strong>{district}</strong><br>
-                    {count} xe phục vụ
-                </div>
-        """
-    
-    html_content += """
-            </div>
             
             <h2>📈 Thống kê tổng quan</h2>
             <ul>

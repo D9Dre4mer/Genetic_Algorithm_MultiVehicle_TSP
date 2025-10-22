@@ -1,6 +1,6 @@
 # 🧬 Giải Thuật Di Truyền Cho Multi-Vehicle TSP Tối Ưu Khoảng Cách
 
-*"Giải thuật di truyền tập trung tối đa vào giảm khoảng cách di chuyển với 168 phường ở TP.HCM — đạt 1,753 km và hội tụ hoàn toàn."*
+*"Giải thuật di truyền tập trung tối đa vào giảm khoảng cách di chuyển với 168 phường ở TP.HCM — đạt 1,614 km và hội tụ hoàn toàn."*
 
 ## 🎯 1. Giới thiệu
 
@@ -371,7 +371,7 @@ def plot_evolution(fitness_history, output_file='evolution.png'):
 **⚠️ Lưu ý**: Kết quả dưới đây dựa trên khoảng cách Haversine (đường chim bay), không phải khoảng cách thực tế theo đường xe cơ giới.
 
 **Kết quả cuối cùng:**
-- **Tổng khoảng cách**: 1,753.2 km (đường chim bay)
+- **Tổng khoảng cách**: 1,614.0 km (đường chim bay)
 - **Tổng thời gian**: 5,765 phút (ước tính)
 - **Vi phạm time window**: 82
 - **Số xe sử dụng**: 4
@@ -406,7 +406,7 @@ Giải thuật di truyền Multi-Vehicle TSP tối ưu khoảng cách đã giả
 
 ### 🏆 Thành tựu chính:
 
-1. **Tối ưu khoảng cách xuất sắc**: Đạt 1,753 km cho 168 phường
+1. **Tối ưu khoảng cách xuất sắc**: Đạt 1,614 km cho 168 phường
 2. **Hội tụ hoàn toàn**: Thuật toán dừng tại thế hệ 2000
 3. **Exponential fitness**: Scaling tốt hơn cho khoảng cách ngắn
 4. **Local search**: 2-opt và balance load cải thiện liên tục
@@ -448,7 +448,7 @@ Giải thuật di truyền Multi-Vehicle TSP tối ưu khoảng cách đã giả
 │   ├── algorithm_performance.png       # Hiệu suất thuật toán
 │   ├── before_after_comparison.png     # So sánh trước/sau
 │   └── summary_report.html             # Báo cáo tổng hợp
-└── multi_vehicle_tsp_results.json       # Kết quả JSON (1,753 km)
+└── multi_vehicle_tsp_results.json       # Kết quả JSON (1,614 km)
 ```
 
 ## 🪄 Gợi ý mở rộng
