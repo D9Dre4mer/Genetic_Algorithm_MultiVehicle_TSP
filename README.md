@@ -58,8 +58,6 @@ cd src
 python tsp_solver.py
 ```
 
-Nhập số xe giao hàng (2-8) khi được yêu cầu.
-
 ### 3. Tạo visualizations
 
 ```bash
