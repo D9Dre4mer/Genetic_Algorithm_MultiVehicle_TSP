@@ -146,51 +146,6 @@ df = pd.read_csv('../data/Phuong_TPHCM_With_Coordinates.CSV')
 # Thay đổi đường dẫn file CSV tại đây
 ```
 
-## 📊 Kết quả chính
-
-### Thống kê bài toán
-- **Số phường/xã**: 168
-- **Số xe giao hàng**: 4
-- **Population Size**: 250
-- **Generations**: 20,000
-- **Early Stopping**: 2000 thế hệ
-
-### Kết quả tối ưu
-- **Tổng khoảng cách**: 1,614.0 km (đường chim bay)
-- **Tổng thời gian**: 5,765 phút (ước tính)
-- **Vi phạm time window**: 82
-- **Số xe sử dụng**: 4
-
-### Phân bố khoảng cách
-- **Xe 1**: 41 điểm, 531.9 km (13.0 km/điểm)
-- **Xe 2**: 45 điểm, 334.4 km (7.4 km/điểm)  
-- **Xe 3**: 42 điểm, 360.5 km (8.6 km/điểm)
-- **Xe 4**: 40 điểm, 526.4 km (13.2 km/điểm)
-
-## 🔧 Thuật toán
-
-### Các thành phần chính
-1. **Geographic Clustering**: Chia TP.HCM thành các vùng địa lý
-2. **Distance-Focused Weighting**: 95% khoảng cách, 5% cân bằng tải
-3. **Exponential Fitness**: Scaling tốt hơn cho khoảng cách ngắn
-4. **Local Search**: 2-opt và balance load
-5. **Early Stopping**: Dừng khi hội tụ hoàn toàn
-
-### Tham số tối ưu
-- **Population Size**: 250
-- **Generations**: 20,000
-- **Mutation Rate**: 30%
-- **Elite Ratio**: 5%
-- **Early Stopping**: 2000 thế hệ
-
-## 📈 Tiến trình hội tụ
-
-- **Thế hệ 0**: Fitness = 0.618256
-- **Thế hệ 100**: Local search cải thiện lên 0.826206
-- **Thế hệ 200**: Balance load cải thiện lên 0.829503
-- **Thế hệ 300**: Local search cải thiện lên 0.834379
-- **Thế hệ 300-2000**: **HỘI TỤ HOÀN TOÀN** - Fitness ổn định tại 0.834379
-
 ## 🎯 Ứng dụng thực tế
 
 - **Logistics đô thị**: Tối ưu lộ trình cho nhiều xe giao hàng
