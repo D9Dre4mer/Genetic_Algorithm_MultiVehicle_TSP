@@ -9,12 +9,12 @@ Dự án này sử dụng **Giải thuật Di truyền (Genetic Algorithm)** đ�
 ## 🎯 Mục tiêu
 
 - **Mục tiêu chính**: Tối thiểu hóa tổng quãng đường di chuyển
-- **Kết quả**: Đạt 1,614 km cho 168 phường với 4 xe giao hàng
-- **Hội tụ**: Thuật toán hội tụ hoàn toàn tại thế hệ 2000
+- **Kết quả**: Đạt khoảng cách di chuyển tối thiểu cho 168 phường với 4 xe giao hàng
+- **Hội tụ**: Thuật toán hội tụ hoàn toàn tại trong 2000 thế hệ
 
 ## ⚠️ Lưu ý quan trọng
 
-**Hạn chế về khoảng cách**: Thuật toán hiện tại sử dụng khoảng cách Haversine (đường chim bay) chứ không phải khoảng cách thực tế theo đường xe cơ giới. Khoảng cách thực tế có thể lớn hơn 1.5-2 lần do hệ thống đường xá.
+**Hạn chế về khoảng cách**: Thuật toán hiện tại sử dụng khoảng cách Haversine (đường chim bay) chứ không phải khoảng cách thực tế theo đường xe cơ giới. Khoảng cách thực tế có thể lớn hơn 1.5-2 lần do hệ thống đường sá.
 
 ## 📁 Cấu trúc dự án
 
